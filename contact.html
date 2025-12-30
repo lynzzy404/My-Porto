@@ -55,10 +55,11 @@
         onsubmit="return sendMessage(event)">
         
           <input type="text" id="name" name="name" placeholder="Your Name" required />
+          <input type="hidden" id="subject" name="_subject">
           <input type="email" id="email" name="email" placeholder="Your Email" required />
           <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-          <input type="hidden" name="Time" id="timeField">
-          <input type="hidden" name="User Agent" id="uaField">
+          <input type="hidden" id="timeField" name="Time">
+          <input type="hidden" id="uaField" name="User Agent">
           <button type="submit" class="btn">Send Message</button>
           <p id="msg-status"></p>
         </form>
@@ -69,6 +70,9 @@
 async function sendMessage(e) {
   e.preventDefault();
 
+  const nama = document.getElementById("name").value;
+
+  document.getElementById("subject").value = `Contact — Pesan baru dari ${nama}`;
   document.getElementById("timeField").value = new Date().toISOString();
   document.getElementById("uaField").value   = navigator.userAgent;
 
