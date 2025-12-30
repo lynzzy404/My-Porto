@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Lynzzy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/My-Porto/index.html" class="logo">Lynz<span>zy404</span></a>
+      <div class="menu-icon" id="menu-icon">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <nav class="navbar">
+        <a href="/My-Porto/index.html">Home</a>
+        <a href="/My-Porto/education.html">Education</a>
+        <a href="/My-Porto/experience.html">Experience</a>
+        <a href="/My-Porto/skills.html">Skills</a>
+        <a href="/My-Porto/services.html">Services</a>
+        <a href="/My-Porto/contact.html" class="active">Contact</a>
+      </nav>
+    </header>
+
+    <section class="section fade-in contact-section">
+      <h2 class="section-title">My <span>Contact</span></h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:muhammadnursaid678@gmail.com"
+              >muhammadnursaid678@gmail.com</a
+            >
+          </div>
+          <div class="contact-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <a href="https://wa.me/6285823737077?text=hayy+saidd">+62 858 2373 7077</a>
+          </div>
+          <div class="contact-item">
+            <i class="fa-brands fa-github"></i>
+            <a href="https://github.com/lynzzy404" target="_blank"
+              >github.com/lynzzy404</a
+            >
+          </div>
+        </div>
+
+        <form 
+        action="https://formspree.io/f/xwvkwand" 
+        method="POST" 
+        class="contact-form"
+        onsubmit="return sendMessage(event)">
+        
+          <input type="text" id="name" name="name" placeholder="Your Name" required />
+          <input type="email" id="email" name="email" placeholder="Your Email" required />
+          <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+          <input type="hidden" name="Time" id="timeField">
+          <input type="hidden" name="User Agent" id="uaField">
+          <button type="submit" class="btn">Send Message</button>
+          <p id="msg-status"></p>
+        </form>
+      </div>
+    </section>
+
+    <script>
+async function sendMessage(e) {
+  e.preventDefault();
+
+  document.getElementById("timeField").value = new Date().toISOString();
+  document.getElementById("uaField").value   = navigator.userAgent;
+
+  const form = document.querySelector(".contact-form");
+  const msg  = document.getElementById("msg-status");
+
+  try {
+    const res = await fetch("https://formspree.io/f/xwvkwand", {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    });
+
+    if (res.ok) {
+      msg.textContent = "Pesan terkirim ✅";
+      msg.style.color = "#00ffff";
+      form.reset();
+    } else {
+      msg.textContent = "Gagal mengirim ❌";
+      msg.style.color = "red";
+    }
+  } catch (err) {
+    msg.textContent = "Terjadi error jaringan ❌";
+    msg.style.color = "red";
+  }
+
+  setTimeout(() => (msg.textContent = ""), 3000);
+}
+</script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
